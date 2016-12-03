@@ -12,7 +12,7 @@ Form.Validate('#form',{
 </pre>	
 Html:
 <pre>
-![CDATA[
+<xmp>
    <form id="form" action="get.php">
 	<input type="name" name="name" />
 	<span error="name"></span>
@@ -21,7 +21,7 @@ Html:
 	<input type="text" name="age" />
 	<span error="age"></span>
   </form>
-  ]]>
+</xmp>
 </pre>
 
   

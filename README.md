@@ -12,14 +12,16 @@ Form.Validate('#form',{
 </pre>	
 Html:
 <pre>
-   #<form id="form" action="get.php">
-	#<input type="name" name="name" />
-	#<span error="name"></span>
-	#<input type="text" name="surname" />
-	#<span error="surname"></span>
-	#<input type="text" name="age" />
-	#<span error="age"></span>
-  #</form>
+![CDATA[
+   <form id="form" action="get.php">
+	<input type="name" name="name" />
+	<span error="name"></span>
+	<input type="text" name="surname" />
+	<span error="surname"></span>
+	<input type="text" name="age" />
+	<span error="age"></span>
+  </form>
+  ]]>
 </pre>
 
   

@@ -1,4 +1,4 @@
-# <h2>JS-Form-Validator<h2>(Not Finished)<br>
+# <h2>JS-Form-Validator<h2><br>
 Javascript Form Validator (not Jquery)<br>
 Javascript Form Validation more than 15 rules<br>
 #Usable
@@ -27,6 +27,8 @@ Html:
 <pre>
 <strong>AutoSend:</strong><br>
 Form.autoSend = true;<br>
+Form.async = false or true (for async auto sending)
+Form.autoSendCallBack = function(){}
 <strong>Callback:</strong><br>
 Form.callback = function(){}<br>
 Rules:<br>

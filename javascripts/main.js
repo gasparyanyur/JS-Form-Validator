@@ -5,6 +5,8 @@ function Form() {
 	this.formStatus = false;
 	this.autoSend = true;
 	this.statusArray = [];
+	this.status = true;
+	this.callback = false;
 	var self = this;
 	this.Validate = function(form,validator) {
 		document.querySelector(form).onsubmit = function(e) {
@@ -16,7 +18,6 @@ function Form() {
 						for(var x = 0; x < rules.length ; x++) {
 							var ruleEvent = rules[x].split(':');
 							if(ruleEvent.length == 1) {
-								console.log(self.Validator[ruleEvent[0]](obj,form));
 								if(self.Validator[ruleEvent[0]](obj,form) === true) {
 									document.querySelector(form +' [error = "'+obj+'"]').innerHTML = '';
 									self.statusArray.push('true');
@@ -48,9 +49,20 @@ function Form() {
 				}
 				
 				if(self.statusArray.indexOf('false') == -1) {
-					this.status == true;
+					self.status = true;
 				} else {
-					this.status == false;
+					self.status = false;
+				}
+
+				if(self.callback !== false) {
+						self.callback();
+				} else if (self.autoSend === true) {
+					var form_el = document.getElementById(form.replace('#','')),
+						form_url = form_el.action,
+						form_method = form_el.method,
+						form_enctype = form_el.enctype;
+
+						console.log(form_url,form_method,form_enctype);
 				}
 				
 		};
@@ -80,7 +92,7 @@ Form.prototype.Validator = Object.create({
 			} 
 			return true;
 		}
-		return true;
+		
 	},
 	max:function(name,form,value) {
 		if(this.required.apply(this,arguments) === true) {
@@ -91,10 +103,29 @@ Form.prototype.Validator = Object.create({
 			}
 			return true;
 		}
-		return true;
+		
 	},
-	between:function(){
+	between:function(name,form,from,to){
+		if(this.required.apply(this,arguments) === true) {
+			var value =  document.querySelector(form +' [name = "'+name+'"]').value,
+				tp = parseInt(value);
+			if(isNaN(tp) === true)	{
+				var length = value.length;
+				if(length < parseInt(from) || length > parseInt(to) ) {
+					document.querySelector(form +' [error = "'+name+'"]').innerHTML = 'between error';
+					return false;
+				}
+				return true
+			} else {
+				if(tp < parseInt(from) || tp > parseInt(to) ) {
 
+					document.querySelector(form +' [error = "'+name+'"]').innerHTML = 'between error';
+					return false;
+				}
+				return true;
+			}
+		}
+		
 	},
 	min_size:function(name,form,value){
 		if(this.required.apply(this,arguments) === true) {
@@ -125,7 +156,7 @@ Form.prototype.Validator = Object.create({
 			}
 			return true;
 		}
-		return true;
+		
 	},
 	alpha_numeric:function(name,form){
 		if(this.required.apply(this,arguments) === true) {
@@ -165,7 +196,6 @@ Form.prototype.Validator = Object.create({
 			}
 			return true;
 		}
-		return true;
 	},
 	numeric_spaces:function(name,form){
 		if(this.required.apply(this,arguments) === true) {
@@ -238,7 +268,6 @@ Form.prototype.Validator = Object.create({
 			}
 			
 		}
-		return true;
 	},
 	min_img_w:function(name,form,value){
 		if(this.image.apply(this,arguments) === false) {
@@ -253,7 +282,6 @@ Form.prototype.Validator = Object.create({
 			return true;
 			
 		}
-		return true;
 	},
 	max_img_w:function(name,form,value){
 		if(this.image.apply(this,arguments) === false) {
@@ -268,7 +296,6 @@ Form.prototype.Validator = Object.create({
 			return true;
 			
 		}
-		return true;
 	},
 	img_w:function(name,form,value){
 		if(this.image.apply(this,arguments) === false) {
@@ -283,7 +310,6 @@ Form.prototype.Validator = Object.create({
 			return true;
 			
 		}
-		return true;
 	},
 	min_img_h:function(name,form,value){
 		if(this.image.apply(this,arguments) === false) {
@@ -298,7 +324,6 @@ Form.prototype.Validator = Object.create({
 			return true;
 			
 		}
-		return true;
 	},
 	max_img_h:function(name,form,value){
 		if(this.image.apply(this,arguments) === false) {
@@ -327,7 +352,6 @@ Form.prototype.Validator = Object.create({
 			return true;
 			
 		}
-		return true;
 	},
 	image_load:function(name,form,ret) {
 		var file = document.querySelector(form +' [name = "'+name+'"]');
@@ -363,7 +387,6 @@ Form.prototype.Validator = Object.create({
 			}
 			return true;
 		}
-		return true;
 	},
 	date:function(name,form) {
 		
@@ -386,7 +409,6 @@ Form.prototype.Validator = Object.create({
 			}
 			return true;
 		}
-		return true;
 	},
 	date_time:function(name,form) {
 		if(this.required.apply(this,arguments) === true) {
@@ -398,7 +420,7 @@ Form.prototype.Validator = Object.create({
 			}
 			return true;
 		}
-		return true;
+		
 	},
 	accepted:function(name,form) {
 		if(this.required.apply(this,arguments) === true) {
@@ -408,7 +430,7 @@ Form.prototype.Validator = Object.create({
 			}
 			return false;
 		}
-		return true;
+		
 	},
 	different:function(name,form,value) {
 		var available = eval(value);

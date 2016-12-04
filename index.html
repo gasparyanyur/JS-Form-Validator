@@ -20,10 +20,9 @@
 <script src="javascripts/main.js"></script>
 
 <script>
+	
 	Form.Validate('#form',{
-		name:'required|min:3|max:32|alpha',
-		surname:'required|min:5|max:32|alpha',
-		age:'required|numeric'
+		name:'required|between:3:7'
 	});
 
 </script>

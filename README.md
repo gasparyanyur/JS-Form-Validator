@@ -1,4 +1,4 @@
-# <h2>JS-Form-Validator<h2><br>
+# <h2>JS-Form-Validator<h2>(Not Finished)<br>
 Javascript Form Validator (not Jquery)<br>
 Javascript Form Validation more than 15 rules<br>
 #Usable

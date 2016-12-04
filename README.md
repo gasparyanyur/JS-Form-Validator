@@ -26,9 +26,9 @@ Html:
 #Documentation<br>
 <pre>
 <strong>AutoSend:</strong><br>
-Form.autoSend = true;<br>
+Form.autoSend = true;
 Form.async = false or true (for async auto sending)
-Form.autoSendCallBack = function(){}
+Form.autoSendCallBack = function(result){}
 <strong>Callback:</strong><br>
 Form.callback = function(){}<br>
 Rules:<br>
